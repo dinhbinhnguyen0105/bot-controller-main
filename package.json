@@ -1,0 +1,21 @@
+{
+  "name": "bot-manager",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "electron": "^34.1.0",
+    "formidable": "^3.5.2",
+    "leveldown": "^6.1.1",
+    "levelup": "^5.1.1",
+    "puppeteer": "^24.2.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "user-agents": "^1.1.443"
+  }
+}
