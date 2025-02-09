@@ -70,53 +70,6 @@ class Controller {
         this.page.goto("https://bot.sannysoft.com/");
         await new Promise(resolve => setTimeout(resolve, 3000));
         return this.browser;
-        // try {
-        // } catch (err) {
-        //     console.error("Initialization failed:", err);
-        //     console.error(err);
-        //     throw err;
-        // }
-    }
-
-    async facebookCheckLogin() {
-        try {
-            const uid = path.basename(this.puppeteerOptions.userDataDir);
-            const loginUrl = "https://www.facebook.com/login";
-            await this.page.goto(loginUrl, { timeout: 60000 });
-            await new Promise(resolve => setTimeout(resolve, 500));
-            const currentUrl = this.page.url();
-            if (currentUrl.includes("home.php")) {
-                return true;
-            }
-            else {
-                console.error(`User is not logged into Facebook in userDataDir: [${uid}]`);
-                return false;
-            };
-        } catch (err) {
-            console.error("Check login failed: ", err);
-            // await this.cleanup();
-            return false;
-        }
-    }
-
-    async facebookGetName() {
-        try {
-            await this.page.goto("https://www.facebook.com/profile.php", { timeout: 60000 });
-            await this.humanDelay(1000, 1000);
-            await this.page.waitForSelector("h1");//, { visible: true }
-        } catch (err) {
-            console.error(err);
-            return false;
-        }
-        const usernameElms = await this.page.$$("h1");
-        for (let usernameElm of usernameElms) {
-            const isVisible = await this.checkVisibleElement(usernameElm);
-            if (isVisible) {
-                const username = await usernameElm.evaluate(elm => elm.textContent);
-                return username.trim();
-            };
-        };
-        return false;
     }
 
     async humanClick(elementHandler) {
@@ -261,19 +214,3 @@ class Controller {
 }
 
 module.exports = { Controller };
-
-// (async () => {
-//     const executablePath = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-//     const controller = new Controller({
-//         headless: false,
-//         executablePath: executablePath,
-//         userAgent: uidInfo.userAgent,
-//         userDataDir: userDataDir,
-//         proxyOptions: {
-//             uri: "42.118.140.59:27434",
-//             username: "XSlGcX",
-//             password: "qFabfI",
-//         }
-//     });
-//     await controller.initBrowser()
-// })();

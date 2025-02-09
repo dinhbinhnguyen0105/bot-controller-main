@@ -22,6 +22,25 @@ class FacebookController extends Controller {
             throw err;
         }
     }
+    async getName() {
+        try {
+            await this.page.goto("https://www.facebook.com/profile.php", { timeout: 60000 });
+            await this.humanDelay(1000, 1000);
+            await this.page.waitForSelector("h1");//, { visible: true }
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+        const usernameElms = await this.page.$$("h1");
+        for (let usernameElm of usernameElms) {
+            const isVisible = await this.checkVisibleElement(usernameElm);
+            if (isVisible) {
+                const username = await usernameElm.evaluate(elm => elm.textContent);
+                return username.trim();
+            };
+        };
+        return false;
+    }
     async reelAndLike() {
         await this.humanDelay(1000, 3000);
         await this.page.goto("https://www.facebook.com/reel/");
@@ -263,6 +282,31 @@ class FacebookController extends Controller {
                 break;
             };
         };
+    }
+    async listToMarketplace(marketOptions) {
+        const options = {
+            images: [],
+            content: {
+                title: "",
+                descriptions: "",
+            }
+        }
+        // https://www.facebook.com/marketplace/create/item
+        // role="main"
+        // aria-label="Marketplace"//role="form"
+        // role="button"//aria-expanded="false"
+        //label aria-label="Title" -> input
+        // aria-label="Price"   -> input    
+        // aria-label="Category" -> click aria-label="Dropdown menu"
+        // aria-label="Condition"
+        // aria-label="Description"
+        // aria-label="Location" => click ->  delete all -> type "" ->  {
+        //ul role="listbox" //aria-label="5 suggested searches" 
+        //li role="option" -> 1
+        // }
+        const LABEL = {
+            title: 
+        }
     }
 }
 
