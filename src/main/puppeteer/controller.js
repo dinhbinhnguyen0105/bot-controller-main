@@ -78,8 +78,7 @@ class Controller {
             if (boundingBox) {
                 const x = boundingBox.x + boundingBox.width / 2;
                 const y = boundingBox.y + boundingBox.height / 2;
-
-                await this.page.mouse.move(x, y, { steps: 25 });
+                await this.humanMove(x, y);
                 await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 500));
                 await this.page.mouse.down();
                 await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
@@ -134,20 +133,25 @@ class Controller {
             let elementY = boundingBox.y;
             let viewportHeight = await this.page.evaluate(() => window.innerHeight);
             let currentScrollY = await this.page.evaluate(() => window.scrollY);
+
             while (currentScrollY + viewportHeight < elementY || currentScrollY > elementY) {
                 let scrollStep = Math.floor(Math.random() * 200) + 100;
+
                 if (currentScrollY + viewportHeight < elementY) {
                     await this.page.mouse.wheel({ deltaY: scrollStep });
                     currentScrollY += scrollStep;
                 } else {
                     await this.page.mouse.wheel({ deltaY: -scrollStep });
                     currentScrollY -= scrollStep;
-                };
+                }
+
                 await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 1000) + 500));
+                elementY = (await elementHandler.boundingBox()).y;
+                currentScrollY = await this.page.evaluate(() => window.scrollY);
             }
         } else {
-            throw new Error("bounding");
-        };
+            console.error("Not found element:", elementHandler);
+        }
     }
     async humanScrollDown() {
         const steps = Math.floor(Math.random() * (30 - 10 + 1)) + 10;

@@ -1,8 +1,8 @@
+const path = require("path");
 const { Controller } = require("../controller")
 
 class FacebookController extends Controller {
     async checkLogin() {
-        if (!this.checkController()) return false;
         try {
             const uid = path.basename(this.puppeteerOptions.userDataDir);
             const loginUrl = "https://www.facebook.com/login";
@@ -46,7 +46,6 @@ class FacebookController extends Controller {
         await this.page.goto("https://www.facebook.com/reel/");
 
         const pageLang = await this.page.$eval("html", html => html.lang);
-        console.log("Website language: ", pageLang);
         if (!pageLang.includes("vi") && !pageLang.includes("en")) {
             console.error("The website is not available in the supported language");
             return false;
@@ -196,7 +195,6 @@ class FacebookController extends Controller {
     }
     async postToNewFeed(newFeedOptions) {
         const pageLang = await this.page.$eval("html", html => html.lang);
-        console.log("Website language: ", pageLang);
         if (!pageLang.includes("vi") && !pageLang.includes("en")) {
             console.error("The website is not available in the supported language");
             return false;
@@ -284,13 +282,22 @@ class FacebookController extends Controller {
         };
     }
     async listToMarketplace(marketOptions) {
-        const options = {
-            images: [],
-            content: {
-                title: "",
-                descriptions: "",
-            }
-        }
+        await this.humanDelay(1000, 3000);
+        await this.page.goto("https://www.facebook.com/marketplace/create/item");
+
+        const pageLang = await this.page.$eval("html", html => html.lang);
+        const lang = pageLang.trim();
+        if (!pageLang.includes("vi") && !pageLang.includes("en")) {
+            console.error("The website is not available in the supported language");
+            return false;
+        };
+        // const options = {
+        //     images: [],
+        //     content: {
+        //         title: "",
+        //         descriptions: "",
+        //     }
+        // }
         // https://www.facebook.com/marketplace/create/item
         // role="main"
         // aria-label="Marketplace"//role="form"
@@ -304,9 +311,121 @@ class FacebookController extends Controller {
         //ul role="listbox" //aria-label="5 suggested searches" 
         //li role="option" -> 1
         // }
-        const LABEL = {
-            title: 
+
+        const ARIA_LABEL = {
+            title: lang === "vi" ? "" : "title",
+            price: lang === "vi" ? "" : "price",
+            category: lang === "vi" ? "" : "category",
+            condition: lang === "vi" ? "" : "condition",
+            description: lang === "vi" ? "" : "description",
+            location: lang === "vi" ? "" : "location",
+            categoryDialog: lang === "vi" ? "" : "dropdown menu",
+            conditionListbox: lang === "vi" ? "" : "select an option",
         }
+
+        await this.page.waitForSelector("div[role='main']");
+        const mainELm = await this.page.$("div[role='main']");
+        await mainELm.waitForSelector("div[role='form']");
+        const marketplaceElm = await this.page.$("div[role='form']");
+        await marketplaceElm.waitForSelector("div[role='button']");
+
+        // Click expand button
+        let buttonElms = await marketplaceElm.$$("div[role='button']");
+        let isClickExpandBtn = false;
+        for (let buttonElm of buttonElms) {
+            const isVisible = await this.checkVisibleElement(buttonElm);
+            if (isVisible) {
+                const ariaExpanded = await buttonElm.evaluate(elm => {
+                    if (elm.getAttribute("aria-expanded")) return true;
+                });
+                if (ariaExpanded) {
+                    await this.humanScrollToElement(buttonElm);
+                    await this.humanClick(buttonElm);
+                    isClickExpandBtn = true;
+                    break;
+                };
+            };
+        };
+        if (!isClickExpandBtn) {
+            console.error("Expand button not found.");
+            return false;
+        };
+
+        const clickOption = async (label) => {
+            let isClick = false;
+            await marketplaceElm.waitForSelector("label");
+            let labelElms = await marketplaceElm.$$("label");
+            for (let labelElm of labelElms) {
+                const ariaLabel = await labelElm.evaluate(elm => {
+                    if (elm.getAttribute("aria-label")) { return elm.getAttribute("aria-label") }
+                    else { false; };
+                });
+                if (ariaLabel && ariaLabel.toLowerCase().trim() === label) {
+                    await this.humanScrollToElement(labelElm);
+                    await this.humanClick(labelElm);
+                    isClick = true;
+                };
+            }
+            if (!isClick) {
+                console.error(`${label} label not found`);
+                return false;
+            } else { return true; };
+        };
+
+        // Select Category
+        const isClickCategory = await clickOption(ARIA_LABEL.category);
+        if (!isClickCategory) { return false; };
+        let isClickCategoryDialog = false;
+        await this.page.waitForSelector("div[role='dialog']");
+        let dialogs = await this.page.$$("div[role='dialog']");
+        for (let dialog of dialogs) {
+            const ariaLabel = await dialog.evaluate(elm => {
+                const ariaLabel = elm.getAttribute("aria-label");
+                if (ariaLabel) { return ariaLabel; }
+                else { return false; };
+            });
+            if (ariaLabel && ariaLabel.toLowerCase().trim() === ARIA_LABEL.categoryDialog) {
+                await dialog.waitForSelector("div[role='button']");
+                const buttonElms = await dialog.$$("div[role='button']");
+                const lastBtn = buttonElms[buttonElms.length - 2];
+                // await this.humanScrollToElement(lastBtn);
+                await this.humanScrollDown();
+                await this.humanClick(lastBtn);
+                console.log("Clicked to item of category dialog");
+                isClickCategoryDialog = true;
+            };
+        }
+        if (!isClickCategoryDialog) {
+            console.error("Cannot click to misc item");
+            return false;
+        };
+
+        //Select condition
+        const isClickCondition = await clickOption(ARIA_LABEL.condition);
+        if (!isClickCondition) { return false; };
+        let isClickConditionListbox = false;
+        await this.page.waitForSelector("div[role='listbox']");
+        let listboxs = await this.page.$$("div[role='listbox']");
+        for (let listbox of listboxs) {
+            const ariaLabel = await listbox.evaluate(elm => {
+                const ariaLabel = elm.getAttribute("aria-label");
+                if (ariaLabel) { return ariaLabel; }
+                else { return false; };
+            });
+            if (ariaLabel && ariaLabel.toLowerCase().trim() === ARIA_LABEL.conditionListbox) {
+                await listbox.waitForSelector("div[role='option']");
+                const buttonElms = await listbox.$$("div[role='option']");
+                await this.humanScrollToElement(buttonElms[0]);
+                await this.humanClick(buttonElms[0]);
+                console.log("Clicked to item of condition listbox");
+                isClickConditionListbox = true;
+            };
+        };
+        if (!isClickConditionListbox) {
+            console.error("Cannot click to new item");
+            return false;
+        }
+
     }
 }
 
