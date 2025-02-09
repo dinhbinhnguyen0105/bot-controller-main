@@ -102,7 +102,7 @@ class Controller {
     async facebookGetName() {
         try {
             await this.page.goto("https://www.facebook.com/profile.php", { timeout: 60000 });
-            await this.#humanDelay(1000, 1000);
+            await this.humanDelay(1000, 1000);
             await this.page.waitForSelector("h1");//, { visible: true }
         } catch (err) {
             console.error(err);
@@ -110,7 +110,7 @@ class Controller {
         }
         const usernameElms = await this.page.$$("h1");
         for (let usernameElm of usernameElms) {
-            const isVisible = await this.#checkVisibleElement(usernameElm);
+            const isVisible = await this.checkVisibleElement(usernameElm);
             if (isVisible) {
                 const username = await usernameElm.evaluate(elm => elm.textContent);
                 return username.trim();
@@ -119,7 +119,7 @@ class Controller {
         return false;
     }
 
-    async #humanClick(elementHandler) {
+    async humanClick(elementHandler) {
         try {
             const boundingBox = await elementHandler.boundingBox();
             if (boundingBox) {
@@ -140,8 +140,8 @@ class Controller {
             console.error("Error in humanClick:", error);
         };
     }
-    async #humanType(elementHandler, text) {
-        await this.#humanClick(elementHandler);
+    async humanType(elementHandler, text) {
+        await this.humanClick(elementHandler);
         for (let char of text) {
             await this.page.keyboard.type(char, {
                 delay: Math.random() * 100 + 50,
@@ -158,11 +158,11 @@ class Controller {
                 );
             };
             if (Math.random() < 0.1) {
-                await this.#humanDelay(200, 500);
+                await this.humanDelay(200, 500);
             };
         };
     }
-    async #humanMove(x, y) {
+    async humanMove(x, y) {
         const steps = 10 + Math.floor(Math.random() * 15);
         const gravity = 0.1 + Math.random() * 0.3;
         await this.page.mouse.move(x, y, {
@@ -170,12 +170,12 @@ class Controller {
             easing: 'easeOut' + (Math.random() < 0.5 ? 'Quad' : 'Cubic')
         });
     }
-    async #humanDelay(min = 1000, max = 5000) {
+    async humanDelay(min = 1000, max = 5000) {
         const delay = Math.floor(min + Math.random() * (max - min));
         const jitter = delay * 0.3 * Math.random();
         await new Promise(resolve => setTimeout(resolve, delay + jitter));
     }
-    async #humanScrollToElement(elementHandler) {
+    async humanScrollToElement(elementHandler) {
         const boundingBox = await elementHandler.boundingBox();
         if (boundingBox) {
             let elementY = boundingBox.y;
@@ -196,7 +196,7 @@ class Controller {
             throw new Error("bounding");
         };
     }
-    async #humanScrollDown() {
+    async humanScrollDown() {
         const steps = Math.floor(Math.random() * (30 - 10 + 1)) + 10;
         for (let i = 0; i < steps; i++) {
             let scrollDistance = Math.floor(Math.random() * 400) + 100;
@@ -205,8 +205,8 @@ class Controller {
             await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 1000) + 500));
         };
     }
-    async #checkVisibleElement(elementHandler) {
-        if (!await this.#isValidElement(elementHandler)) return false;
+    async checkVisibleElement(elementHandler) {
+        if (!await this.isValidElement(elementHandler)) return false;
         const visibleElm = await this.page.evaluate(element => {
             const rect = element.getBoundingClientRect();
             const isVisible = rect.width > 0 && rect.height > 0;
@@ -216,7 +216,7 @@ class Controller {
         }, elementHandler);
         return visibleElm;
     }
-    async #isValidElement(elementHandler) {
+    async isValidElement(elementHandler) {
         if (!elementHandler) {
             console.error("Element handler is null or undefined.");
             return false;
@@ -233,7 +233,7 @@ class Controller {
         };
         return true;
     }
-    async #waitForElementToDisappear(elementHandler) {
+    async waitForElementToDisappear(elementHandler) {
         await this.page.waitForFunction(element => !document.body.contains(element), {}, elementHandler);
     }
     isController() {
