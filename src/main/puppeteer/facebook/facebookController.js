@@ -74,7 +74,6 @@ class FacebookController extends Controller {
                     if (isVisible) {
                         await this.humanDelay(1000, 3000);
                         await this.humanClick(btnElm);
-                        console.log("Clicked Next btn");
                         await this.humanDelay(1000, 3000);
                         break;
                     } else { continue; };
@@ -97,7 +96,6 @@ class FacebookController extends Controller {
                         if (isVisible) {
                             await this.humanDelay(1000, 3000);
                             await this.humanClick(btnElm);
-                            console.log("Clicked Like btn");
                             await this.humanDelay(1000, 3000);
                             break;
                         } else { continue; };
@@ -164,25 +162,41 @@ class FacebookController extends Controller {
     async addFriend(gid, friendCount) {
         await this.humanDelay(1000, 3000);
         await this.page.goto(`https://www.facebook.com/groups/${gid}/members`);
-        const SELECTOR = {
-            addFriend: null,
-            list: "div[role='list']"
-        };
         const pageLang = await this.page.$eval("html", html => html.lang);
-        if (pageLang.toLowerCase().trim() === "vi") {
-            SELECTOR.addFriend = "div[aria-label='Tham gia nhóm']";
-        } else if (pageLang.toLowerCase().trim() === "en") {
-            SELECTOR.addFriend = "div[aria-label='Add friend']";
+        const lang = pageLang.toLowerCase().trim();
+        if (lang !== "vi" && lang !== "en") {
+            console.error("The website is not available in the supported language");
+            return false;
         };
-        await this.page.waitForSelector(SELECTOR.list);
-        const listElms = await this.page.$$(SELECTOR.list);
+        const ARIA_LABEL = {
+            addFriend: lang === "vi" ? "thêm bạn bè" : "add friend"
+        }
+        await this.page.waitForSelector("div[role='list']");
+        const listElms = await this.page.$$("div[role='list']");
         const latestListElm = listElms[listElms.length - 1];
         await this.humanDelay();
         await this.humanScrollDown();
         await this.humanScrollToElement(latestListElm);
 
-        await latestListElm.waitForSelector(SELECTOR.addFriend);
-        const addFriendBtnElms = await latestListElm.$$(SELECTOR.addFriend);
+        await latestListElm.waitForSelector("div[role='button']");
+        const buttonElms = await latestListElm.$$("div[role='button']");
+
+        let addFriendBtnElms = [];
+        for (let addFriendBtnElm of buttonElms) {
+            const isAddFriendBtn = await addFriendBtnElm.evaluate((elm, ARIA_LABEL) => {
+                const ariaLabel = elm.getAttribute("aria-label");
+                if (ariaLabel && ariaLabel.toLowerCase().trim() === ARIA_LABEL.addFriend) { return true; }
+                else { return false; };
+            }, ARIA_LABEL);
+            if (isAddFriendBtn) {
+                addFriendBtnElms.push(addFriendBtnElm);
+                // if (await this.checkVisibleElement(addFriendBtnElm)) {
+                //     console.log("visible");
+                // };
+            };
+        };
+        // aria-label="Thêm bạn bè"
+        console.log("F: ", addFriendBtnElms.length);
 
         for (let i = 0; i < friendCount; i++) {
             const index = Math.floor(Math.random() * addFriendBtnElms.length);
@@ -191,6 +205,9 @@ class FacebookController extends Controller {
             await this.humanDelay();
             await this.humanClick(addFriendBtnElms[index]);
             console.log("Add friend: ", i);
+            await this.humanDelay(1000, 3000);
+            // if (await this.checkVisibleElement(addFriendBtnElms[index])) {
+            // }
         };
     }
     async postToNewFeed(newFeedOptions) {

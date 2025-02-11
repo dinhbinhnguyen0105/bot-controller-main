@@ -3,13 +3,29 @@ const { ipcMain } = require("electron");
 const UserAgent = require('user-agents');
 const { put, del, get, read } = require("../utils/dbHandler");
 const { Controller } = require("../puppeteer/controller");
+const { FacebookController } = require("../puppeteer/facebook/facebookController")
 const { deleteDirectory } = require("../utils/utils");
 
 const robotAPIs = () => {
+    const readDB = (event, method) => {
+        read()
+            .then(res => res.map(item => Object.values(item)[0]))
+            .then(listUid => event.sender.send(method, {
+                message: "Successfully read all UIDs",
+                data: listUid,
+            }))
+            .catch(error => {
+                console.error(error);
+                event.sender.send(method, {
+                    message: "Error listing all UIDs.",
+                    data: false,
+                });
+            });
+    }
     ipcMain.on("robot:get-name", async (event, req) => {
-        let username = false;
-        const uidInfo = await get(req.uid);
-        const controller = new Controller({
+        let username = "";
+        const uidInfo = await get(req.payload);
+        const controller = new FacebookController({
             headless: false,
             userAgent: uidInfo.config.userAgent,
             proxy: uidInfo.config.proxy,
@@ -17,34 +33,44 @@ const robotAPIs = () => {
         })
         await controller.initBrowser();
         controller.browser.on("disconnected", () => {
-            event.sender.send("robot:get-name", {
-                message: `The ${uidInfo.info.uid}'s browser has been closed.`,
-                data: username,
-            });
+            read()
+                .then(res => res.map(item => Object.values(item)[0]))
+                .then(listUID => event.sender.send("robot:get-name", {
+                    message: `List all data`,
+                    data: listUID,
+                }))
+                .catch(err => {
+                    console.error(err);
+                    event.sender.send("robot:create-uid", {
+                        message: `An error occurred while saving ${uidInfo.info.uid}`,
+                        data: true,
+                    });
+                });
         });
         event.sender.send("robot:get-name", {
             message: `The ${uidInfo.info.uid}'s browser is open.`,
             data: true,
         });
-        const isLogged = await controller.facebookCheckLogin();
+        const isLogged = await controller.checkLogin();
         if (isLogged) {
-            username = await controller.facebookGetName();
+            username = await controller.getName();
             if (!username) {
-                username = "ERROR";
+                uidInfo.info.username = "ERROR";
             } else {
                 uidInfo.info.username = username;
-                await put(uidInfo);
             }
         } else {
-            username = "to signed in";
+            uidInfo.info.username = "to signed in";
         };
+        await put(uidInfo);
         await controller.cleanup();
     });
     ipcMain.on("robot:create-uid", async (event, req) => {
         const userAgent = new UserAgent({ deviceCategory: "desktop" });
+        // return;
         const uidInfo = {};
         uidInfo.info = {
-            ...req.payload,
+            ...req.payload.uid,
             note: "",
             type: "takecare",
         };
@@ -52,10 +78,13 @@ const robotAPIs = () => {
             userAgent: userAgent.toString(),
             proxy: "",
         };
+        console.log(uidInfo);
         put(uidInfo)
-            .then(() => event.sender.send("robot:create-uid", {
+            .then(() => read())
+            .then(res => res.map(item => Object.values(item)[0]))
+            .then(listUID => event.sender.send("robot:create-uid", {
                 message: `Saved: ${uidInfo.info.uid}`,
-                data: true,
+                data: listUID,
             }))
             .catch(err => {
                 console.error(err);
@@ -81,11 +110,12 @@ const robotAPIs = () => {
             console.error(err);
             event.sender.send("robot:import-uid", {
                 message: "Incorrect format in import file.",
-                data: false,
+                data: [],
             });
         }
         const jsonData = JSON.parse(jsonString);
         const listUid = jsonData.map(info => {
+            return info;
             const userAgent = new UserAgent({ deviceCategory: "desktop" });
             return {
                 info: {
@@ -100,20 +130,24 @@ const robotAPIs = () => {
                 }
             };
         });
+        console.log(listUid);
+        // return;
         for (let uidInfo of listUid) {
-            put(uidInfo)
-                .then(() => event.sender.send("robot:import-uid", {
-                    message: `Saved: ${uidInfo.info.uid}`,
-                    data: true,
-                }))
-                .catch(err => {
-                    console.error(err);
-                    event.sender.send("robot:import-uid", {
-                        message: `An error occurred while saving ${uidInfo.info.uid}`,
-                        data: false,
-                    });
-                });
+            await put(uidInfo);
         };
+        read()
+            .then(res => res.map(item => Object.values(item)[0]))
+            .then(listUid => event.sender.send("robot:import-uid", {
+                message: "Successfully read all UIDs",
+                data: listUid,
+            }))
+            .catch(error => {
+                console.error(error);
+                event.sender.send("robot:import-uid", {
+                    message: "Error listing all UIDs.",
+                    data: false,
+                });
+            });
     });
     ipcMain.on("robot:list-uid", async (event, req) => {
         read()
@@ -132,15 +166,16 @@ const robotAPIs = () => {
     });
     ipcMain.on("robot:put-uid", async (event, req) => {
         put(req.payload)
-            .then(() => event.sender.send("robot", {
-                method: "put-uid",
-                message: `Successfully edit ${req.payload.info.uid} information.`,
-                data: true,
+            .then(() => read())
+            .then(res => res.map(item => Object.values(item)[0]))
+            .then(listUid => event.sender.send("robot:put-uid", {
+                message: "Successfully read all UIDs",
+                data: listUid,
             }))
             .catch(error => {
                 console.error(error);
                 event.sender.send("robot", {
-                    method: "get-uids",
+                    method: "robot:put-uid",
                     message: `Error editing ${req.payload.info.uid}`,
                     data: false,
                 });
@@ -150,13 +185,14 @@ const robotAPIs = () => {
         const userDataDir = path.join(__dirname, "..", "..", "bin", "browsers", req.payload);
         del(req.payload)
             .then(() => {
-                event.sender.send("robot", {
-                    method: "del-uid",
-                    message: `${req.payload} uid has been deleted.`,
-                    data: true,
-                });
                 deleteDirectory(userDataDir);
+                return read();
             })
+            .then(res => res.map(item => Object.values(item)[0]))
+            .then(listUid => event.sender.send("robot:list-uid", {
+                message: "Successfully read all UIDs",
+                data: listUid,
+            }))
             .catch((err) => {
                 event.sender.send("robot", {
                     method: "del-uid",
@@ -169,25 +205,28 @@ const robotAPIs = () => {
     });
     ipcMain.on("robot:launch-browser", async (event, req) => {
         const uidInfo = await get(req.payload);
-        const controller = new Controller({
+        const controller = new FacebookController({
             headless: false,
             userAgent: uidInfo.config.userAgent,
             proxy: uidInfo.config.proxy,
             userDataDir: path.join(__dirname, "..", "..", "bin", "browsers", uidInfo.info.uid)
         })
         await controller.initBrowser();
-
-        event.sender.send("robot", {
-            method: "launch-browser",
-            message: `The ${req.payload}'s browser is open.`,
-            data: true,
-        })
         controller.browser.on("disconnected", () => {
-            event.sender.send("robot", {
-                method: "launch-browser",
-                message: `The ${req.payload}'s browser has been closed..`,
-                data: false,
-            });
+            read()
+                .then(res => res.map(item => Object.values(item)[0]))
+                .then(listUid => event.sender.send("robot:launch-browser", {
+                    message: `The ${req.payload}'s browser has been closed..`,
+                    data: listUid,
+                }))
+                .catch(error => {
+                    console.error(error);
+                    event.sender.send("robot:launch-browser", {
+                        message: "Error listing all UIDs.",
+                        data: false,
+                    });
+                });
+
         });
     });
 

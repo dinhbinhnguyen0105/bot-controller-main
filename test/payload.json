@@ -2,163 +2,85 @@
     {
         "uid": "61571105674637",
         "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
+        "joinGroupsIndex": 3,
+        "addFriend": "chothuenhadalat0898794080",
         "postToNewFeed": {
             "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
+                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020225.46/re.r.020225.46_0.jpg"
             ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
-        }
-    },
-    {
-        "uid": "61571181960732",
-        "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
-        "postToNewFeed": {
-            "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
-            ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
-        }
-    },
-    {
-        "uid": "61571228397595",
-        "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
-        "postToNewFeed": {
-            "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
-            ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
+            "content": "GIÁ 10TRIỆU/THÁNG \n \ncho thuê nhà mặt tiền P9 \n- Kết cấu: 1 trệt \nGồm MBKD + chỗ ở lại \n+ Mặt bằng kinh doanh KQH Yersin, có chỗ ở lại \n+ Cọc 1 đóng 1 (HĐ lâu dài) \n+ Không KD quán nhậu \n- Khu vực dân trí cao, an ninh tốt \n- Giá: 10triệu/tháng \nLH: 0375 155 525 \nID: RE.R.020225.46"
         }
     },
     {
         "uid": "61573027943368",
         "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
+        "joinGroupsIndex": 3,
+        "addFriend": "chothuenhadalat0898794080",
         "postToNewFeed": {
             "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
+                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020225.46/re.r.020225.46_0.jpg"
             ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
+            "content": "GIÁ 10TRIỆU/THÁNG \n \ncho thuê nhà mặt tiền P9 \n- Kết cấu: 1 trệt \nGồm MBKD + chỗ ở lại \n+ Mặt bằng kinh doanh KQH Yersin, có chỗ ở lại \n+ Cọc 1 đóng 1 (HĐ lâu dài) \n+ Không KD quán nhậu \n- Khu vực dân trí cao, an ninh tốt \n- Giá: 10triệu/tháng \nLH: 0375 155 525 \nID: RE.R.020225.46"
         }
     },
     {
-        "uid": "Tr\u00fac Ph\u01b0\u1ee3ng",
+        "uid": "61567362557063",
         "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
+        "joinGroupsIndex": 3,
+        "addFriend": "chothuenhadalat0898794080",
         "postToNewFeed": {
             "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
+                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020225.46/re.r.020225.46_0.jpg"
             ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
+            "content": "GIÁ 10TRIỆU/THÁNG \n \ncho thuê nhà mặt tiền P9 \n- Kết cấu: 1 trệt \nGồm MBKD + chỗ ở lại \n+ Mặt bằng kinh doanh KQH Yersin, có chỗ ở lại \n+ Cọc 1 đóng 1 (HĐ lâu dài) \n+ Không KD quán nhậu \n- Khu vực dân trí cao, an ninh tốt \n- Giá: 10triệu/tháng \nLH: 0375 155 525 \nID: RE.R.020225.46"
         }
     },
     {
-        "uid": "Thu Minh",
+        "uid": "61567782403633",
         "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
+        "joinGroupsIndex": 3,
+        "addFriend": "chothuenhadalat0898794080",
         "postToNewFeed": {
             "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
+                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020225.46/re.r.020225.46_0.jpg"
             ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
+            "content": "GIÁ 10TRIỆU/THÁNG \n \ncho thuê nhà mặt tiền P9 \n- Kết cấu: 1 trệt \nGồm MBKD + chỗ ở lại \n+ Mặt bằng kinh doanh KQH Yersin, có chỗ ở lại \n+ Cọc 1 đóng 1 (HĐ lâu dài) \n+ Không KD quán nhậu \n- Khu vực dân trí cao, an ninh tốt \n- Giá: 10triệu/tháng \nLH: 0375 155 525 \nID: RE.R.020225.46"
         }
     },
     {
-        "uid": "Nguyen Zanna",
+        "uid": "61568123597648",
         "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
+        "joinGroupsIndex": 3,
+        "addFriend": "chothuenhadalat0898794080",
         "postToNewFeed": {
             "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
+                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020225.46/re.r.020225.46_0.jpg"
             ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
+            "content": "GIÁ 10TRIỆU/THÁNG \n \ncho thuê nhà mặt tiền P9 \n- Kết cấu: 1 trệt \nGồm MBKD + chỗ ở lại \n+ Mặt bằng kinh doanh KQH Yersin, có chỗ ở lại \n+ Cọc 1 đóng 1 (HĐ lâu dài) \n+ Không KD quán nhậu \n- Khu vực dân trí cao, an ninh tốt \n- Giá: 10triệu/tháng \nLH: 0375 155 525 \nID: RE.R.020225.46"
         }
     },
     {
-        "uid": "Nguyen Suzan",
+        "uid": "61568187382516",
         "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
+        "joinGroupsIndex": 3,
+        "addFriend": "chothuenhadalat0898794080",
         "postToNewFeed": {
             "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
+                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020225.46/re.r.020225.46_0.jpg"
             ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
+            "content": "GIÁ 10TRIỆU/THÁNG \n \ncho thuê nhà mặt tiền P9 \n- Kết cấu: 1 trệt \nGồm MBKD + chỗ ở lại \n+ Mặt bằng kinh doanh KQH Yersin, có chỗ ở lại \n+ Cọc 1 đóng 1 (HĐ lâu dài) \n+ Không KD quán nhậu \n- Khu vực dân trí cao, an ninh tốt \n- Giá: 10triệu/tháng \nLH: 0375 155 525 \nID: RE.R.020225.46"
         }
     },
     {
-        "uid": "Nguyen Salena",
+        "uid": "61568488563757",
         "reelAndLike": true,
-        "joinGroupsIndex": 0,
-        "addFriend": "",
+        "joinGroupsIndex": 3,
+        "addFriend": "chothuenhadalat0898794080",
         "postToNewFeed": {
             "images": [
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_0.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_1.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_2.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_3.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_4.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_5.jpg",
-                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020725.5/re.r.020725.5_6.jpg"
+                "/Users/dinhbinh/Workspace/mymanager-v2/bin/db/products/real-estate/images/re.r.020225.46/re.r.020225.46_0.jpg"
             ],
-            "content": "CHO THUÊ\n\ncho thuê nhà Phường 8\n- Kết cấu: 1 trệt\nGồm 1pk, 1 bếp, 3pn, 3wc\n+ Sân vườn rộng rãi, để xe hơi thoải mái\n+ Không kinh doanh\n+ Cọc 2 đóng 1 (HĐ lâu dài)\n- Khu vực dân trí cao, an ninh tốt\n- Giá: 16triệu/tháng\nLH: 0375 155 525\nID: RE.R.020725.5 "
+            "content": "GIÁ 10TRIỆU/THÁNG \n \ncho thuê nhà mặt tiền P9 \n- Kết cấu: 1 trệt \nGồm MBKD + chỗ ở lại \n+ Mặt bằng kinh doanh KQH Yersin, có chỗ ở lại \n+ Cọc 1 đóng 1 (HĐ lâu dài) \n+ Không KD quán nhậu \n- Khu vực dân trí cao, an ninh tốt \n- Giá: 10triệu/tháng \nLH: 0375 155 525 \nID: RE.R.020225.46"
         }
     }
 ]
