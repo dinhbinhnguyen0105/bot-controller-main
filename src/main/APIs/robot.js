@@ -3,7 +3,7 @@ const { ipcMain } = require("electron");
 const UserAgent = require('user-agents');
 const { put, del, get, read } = require("../utils/dbHandler");
 const { FacebookController } = require("../puppeteer/facebook/facebookController")
-const { deleteDirectory } = require("../utils/utils");
+const { deleteDirectory, deepConvert } = require("../utils/utils");
 
 const robotAPIs = () => {
     ipcMain.on("robot:create-uid", async (event, req) => {
@@ -39,32 +39,46 @@ const robotAPIs = () => {
             month: '2-digit',
             day: '2-digit',
         }).format(today);
-        const base64Data = req.payload.replace(/^data:.*,/, '');
-        const buffer = Buffer.from(base64Data, 'base64');
-        const jsonString = buffer.toString('utf-8');
-        try {
-            JSON.parse(jsonString);
-        } catch (err) {
-            console.error(err);
-            event.sender.send("robot:import-uid", {
-                message: "Incorrect format in import file.",
-                data: [],
-            });
+
+        // const base64Data = req.payload.replace(/^data:.*,/, '');
+        // const buffer = Buffer.from(base64Data, 'base64');
+        // const jsonString = buffer.toString('utf-8');
+        // try {
+        //     JSON.parse(jsonString);
+        // } catch (err) {
+        //     console.error(err);
+        //     event.sender.send("robot:import-uid", {
+        //         message: "Incorrect file format for import. [{info: {}, config: {}}]",
+        //         status: false,
+        //         data: false,
+        //     });
+        //     return;
+        // }
+        // const jsonData = JSON.parse(jsonString);
+        const jsonData = deepConvert(req.payload);
+        for (let uidInfo of jsonData) {
+            if (!uidInfo?.info) {
+                event.sender.send("robot:import-uid", {
+                    message: "Incorrect file format for import. [{info: {}, config: {}}]",
+                    status: false,
+                    data: false,
+                })
+                return;
+            }
         }
-        const jsonData = JSON.parse(jsonString);
-        const listUid = jsonData.map(info => {
-            return info;
+        const listUid = jsonData.map(uidInfo => {
             const userAgent = new UserAgent({ deviceCategory: "desktop" });
             return {
                 info: {
-                    ...info,
+                    ...uidInfo.info,
                     date: formattedDate,
                     note: "",
                     type: "takecare"
                 },
                 config: {
                     userAgent: userAgent.toString(),
-                    proxy: ""
+                    proxy: "",
+                    ...uidInfo.config
                 }
             };
         });
@@ -72,7 +86,7 @@ const robotAPIs = () => {
             await put(uidInfo);
         };
         event.sender.send("robot:import-uid", {
-            message: "imported successfully.",
+            message: "Imported successfully.",
             status: true,
             data: listUid,
         });
@@ -91,16 +105,17 @@ const robotAPIs = () => {
                 event.sender.send("robot:list-uid", {
                     message: "Error listing all UIDs.",
                     status: false,
-                    data: false,
+                    data: [],
                 });
             });
     });
     ipcMain.on("robot:put-uid", async (event, req) => {
-        put(req.payload)
+        const data = deepConvert(req.payload);
+        put(data)
             .then(() => event.sender.send("robot:put-uid", {
-                message: "Successfully read all UIDs",
+                message: "Update information successful.",
                 status: true,
-                data: req.payload,
+                data: data,
             }))
             .catch(error => {
                 console.error(error);
@@ -115,17 +130,16 @@ const robotAPIs = () => {
         const userDataDir = path.join(__dirname, "..", "..", "bin", "browsers", req.payload);
         del(req.payload)
             .then(() => deleteDirectory(userDataDir))
-            .then(() => event.sender.send("robot:list-uid", {
-                message: "Successfully read all UIDs",
-                status: false,
+            .then(() => event.sender.send("robot:del-uid", {
+                message: `Successfully deleted UID ${req.payload} from dataSuccessfully read all UIDs`,
+                status: true,
                 data: req.payload,
             }))
             .catch((err) => {
-                event.sender.send("robot", {
-                    method: "del-uid",
+                event.sender.send("robot:del-uid", {
                     message: `An error occurred while deleting ${req.payload}.`,
                     status: false,
-                    data: false,
+                    data: null,
                 });
                 console.error(`An error occurred while deleting ${req.payload}.`);
                 throw err;
@@ -143,10 +157,12 @@ const robotAPIs = () => {
         controller.browser.on("disconnected", () => {
             event.sender.send("robot:launch-browser", {
                 message: `The ${req.payload}'s browser has been closed..`,
-                data: uidInfo,
+                status: true,
+                data: true,
             });
         });
     });
+
     ipcMain.on("robot:get-name", async (event, req) => {
         let username = "";
         const uidInfo = await get(req.payload);
@@ -171,13 +187,21 @@ const robotAPIs = () => {
                 uidInfo.info.username = false;
             } else {
                 uidInfo.info.username = username;
+                await put(uidInfo);
             }
         } else {
             uidInfo.info.username = false;
         };
-        await put(uidInfo);
         await controller.cleanup();
     });
+    ipcMain.on("robot:run-bot", async (event, req) => {
+        read()
+            .then(res => res.map(item => Object.values(item)[0]))
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.error(err));
+    })
 };
 
 module.exports = { robotAPIs };

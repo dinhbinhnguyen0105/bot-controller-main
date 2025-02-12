@@ -10,7 +10,7 @@ const { checkUidStatus } = require("./checkUidStatus");
 const controller = async () => {
     const browserDir = path.join(__dirname, "..", "src", "bin", "browsers");
     const strGroups = fs.readFileSync(path.join(__dirname, "groups.json"));
-    const strPayload = fs.readFileSync(path.join(__dirname, "payload.json"));
+    const strPayload = fs.readFileSync(path.join(__dirname, "exportUID.json"));
     const groups = JSON.parse(strGroups);
     const payload = JSON.parse(strPayload);
     let i = 0

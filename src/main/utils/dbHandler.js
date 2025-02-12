@@ -57,6 +57,16 @@ function del(uid) {
     });
 }
 
+
+(async () => {
+    read()
+        .then(res => JSON.stringify(res))
+        .then(res => {
+            fs.writeFileSync(path.join("/Users/dinhbinh/Dev/electron-project/bot-controller/bot-controller-main/test/exportUID.json"), res, { encoding: "utf8" })
+        })
+});
+
+
 module.exports = {
     read,
     get,

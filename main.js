@@ -5,7 +5,7 @@ const { robotAPIs } = require("./src/main/APIs/robot");
 const createMainWindow = () => {
     const window = new BrowserWindow({
         title: "Bot controller",
-        width: 800,
+        width: 1200,
         height: 600,
         webPreferences: {
             preload: path.resolve(__dirname, "preload.js"),
